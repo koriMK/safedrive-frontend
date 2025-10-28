@@ -1,0 +1,1 @@
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://safedrive-backend-d579.onrender.com/api/v1';
