@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Car, DollarSign, MapPin, TrendingUp, LogOut, FileText } from 'lucide-react';
+import { API_BASE_URL } from '../../config/api';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Switch } from '../ui/Switch';
@@ -29,7 +30,7 @@ export default function DriverDashboard({ onTripRequest, onViewEarnings }) {
       const token = localStorage.getItem('token');
       
       // Get driver profile
-      const profileResponse = await fetch('http://localhost:5002/api/v1/drivers/profile', {
+      const profileResponse = await fetch(`${API_BASE_URL}/drivers/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -42,7 +43,7 @@ export default function DriverDashboard({ onTripRequest, onViewEarnings }) {
       }
       
       // Get driver earnings
-      const earningsResponse = await fetch('http://localhost:5002/api/v1/drivers/earnings', {
+      const earningsResponse = await fetch(`${API_BASE_URL}/drivers/earnings`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -111,7 +112,7 @@ export default function DriverDashboard({ onTripRequest, onViewEarnings }) {
             onCheckedChange={async (checked) => {
               try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5002/api/v1/drivers/status', {
+                const response = await fetch(`${API_BASE_URL}/drivers/status`, {
                   method: 'PUT',
                   headers: {
                     'Authorization': `Bearer ${token}`,
@@ -219,7 +220,7 @@ export default function DriverDashboard({ onTripRequest, onViewEarnings }) {
             onClick={async () => {
               try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:5002/api/v1/trips/available', {
+                const response = await fetch(`${API_BASE_URL}/trips/available`, {
                   headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'

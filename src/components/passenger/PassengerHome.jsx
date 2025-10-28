@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MapPin, Navigation, Clock, LogOut, History, Smartphone } from 'lucide-react';
+import { API_BASE_URL } from '../../config/api';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
@@ -89,7 +90,7 @@ export default function PassengerHome({ onRequestTrip, onViewHistory }) {
       const token = localStorage.getItem('token');
       
       // Create trip and notify online drivers
-      const response = await fetch('http://localhost:5002/api/v1/trips', {
+      const response = await fetch(`${API_BASE_URL}/trips`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

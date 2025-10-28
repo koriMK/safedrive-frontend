@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CreditCard, Smartphone, Star, ArrowLeft } from 'lucide-react';
+import { API_BASE_URL } from '../../config/api';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
@@ -33,7 +34,7 @@ export default function Payment({ trip, onPaymentComplete, onBack }) {
       const token = localStorage.getItem('token');
       
       // Initiate M-Pesa STK Push
-      const paymentResponse = await fetch('http://localhost:5002/api/v1/payments/initiate', {
+      const paymentResponse = await fetch(`${API_BASE_URL}/payments/initiate`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -55,7 +56,7 @@ export default function Payment({ trip, onPaymentComplete, onBack }) {
         // Poll for payment status
         const pollInterval = setInterval(async () => {
           try {
-            const statusResponse = await fetch(`http://localhost:5002/api/v1/payments/status/${paymentData.data.paymentId}`, {
+            const statusResponse = await fetch(`${API_BASE_URL}/payments/status/${paymentData.data.paymentId}`, {
               headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -71,7 +72,7 @@ export default function Payment({ trip, onPaymentComplete, onBack }) {
                 
                 // Submit rating if provided
                 if (rating > 0) {
-                  const ratingResponse = await fetch(`http://localhost:5002/api/v1/trips/${trip.id}/rate`, {
+                  const ratingResponse = await fetch(`${API_BASE_URL}/trips/${trip.id}/rate`, {
                     method: 'POST',
                     headers: {
                       'Authorization': `Bearer ${token}`,
